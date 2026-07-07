@@ -29,8 +29,9 @@
   "license": "Apache-2.0",
   "engines": {
     "cordovaDependencies": {
-      "3.0.0": {
-        "cordova": ">100"
+      "3.0.0-dev": {
+        "cordova-android": ">=7.0.0",
+        "cordova-ios": ">=5.1.0"
       }
     }
   },

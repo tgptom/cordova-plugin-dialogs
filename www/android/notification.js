@@ -25,6 +25,9 @@ var exec = require('cordova/exec');
  * Provides Android enhanced notification API.
  */
 module.exports = {
+    /**
+     * @deprecated Legacy Android-only API backed by native ProgressDialog.
+     */
     activityStart: function (title, message) {
         // If title and message not specified then mimic Android behavior of
         // using default strings.
@@ -38,6 +41,8 @@ module.exports = {
 
     /**
      * Close an activity dialog
+     *
+     * @deprecated Legacy Android-only API backed by native ProgressDialog.
      */
     activityStop: function () {
         exec(null, null, 'Notification', 'activityStop', []);
@@ -50,6 +55,8 @@ module.exports = {
      *            title Title of the progress dialog.
      * @param {String}
      *            message Message to display in the dialog.
+     *
+     * @deprecated Legacy Android-only API backed by native ProgressDialog.
      */
     progressStart: function (title, message) {
         exec(null, null, 'Notification', 'progressStart', [title, message]);
@@ -57,6 +64,8 @@ module.exports = {
 
     /**
      * Close the progress dialog.
+     *
+     * @deprecated Legacy Android-only API backed by native ProgressDialog.
      */
     progressStop: function () {
         exec(null, null, 'Notification', 'progressStop', []);
@@ -67,6 +76,8 @@ module.exports = {
      *
      * @param {Number}
      *            value 0-100
+     *
+     * @deprecated Legacy Android-only API backed by native ProgressDialog.
      */
     progressValue: function (value) {
         exec(null, null, 'Notification', 'progressValue', [value]);
