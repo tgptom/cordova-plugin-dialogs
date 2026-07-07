@@ -11,8 +11,8 @@
       "ios"
     ]
   },
-  "repository": "github:apache/cordova-plugin-dialogs",
-  "bugs": "https://github.com/apache/cordova-plugin-dialogs/issues",
+  "repository": "github:tgptom/cordova-plugin-dialogs",
+  "bugs": "https://github.com/tgptom/cordova-plugin-dialogs/issues",
   "keywords": [
     "cordova",
     "notification",
