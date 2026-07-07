@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-dialogs",
-  "version": "3.0.0-dev",
+  "version": "3.0.0",
   "description": "Cordova Notification Plugin",
   "types": "./types/index.d.ts",
   "cordova": {
@@ -29,7 +29,7 @@
   "license": "Apache-2.0",
   "engines": {
     "cordovaDependencies": {
-      "3.0.0-dev": {
+      "3.0.0": {
         "cordova-android": ">=7.0.0",
         "cordova-ios": ">=5.1.0"
       }
