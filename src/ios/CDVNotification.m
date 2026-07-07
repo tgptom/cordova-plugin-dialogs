@@ -148,10 +148,65 @@ static void soundCompletionCallback(SystemSoundID  ssid, void* data) {
     }];
 }
 
+-(UIWindow *)getPresentingWindow {
+    if (self.viewController != nil && self.viewController.isViewLoaded && self.viewController.view.window != nil) {
+        return self.viewController.view.window;
+    }
+
+    UIApplication* application = [UIApplication sharedApplication];
+    UIWindow* presentingWindow = nil;
+
+    if (@available(iOS 13.0, *)) {
+        for (UIScene* scene in application.connectedScenes) {
+            if (scene.activationState != UISceneActivationStateForegroundActive || ![scene isKindOfClass:[UIWindowScene class]]) {
+                continue;
+            }
+
+            UIWindowScene* windowScene = (UIWindowScene*)scene;
+            for (UIWindow* window in windowScene.windows) {
+                if (window.isKeyWindow) {
+                    presentingWindow = window;
+                    break;
+                }
+            }
+
+            if (presentingWindow == nil && windowScene.windows.count > 0) {
+                presentingWindow = windowScene.windows.firstObject;
+            }
+
+            if (presentingWindow != nil) {
+                break;
+            }
+        }
+    }
+
+    if (presentingWindow == nil) {
+        for (UIWindow* window in application.windows) {
+            if (window.isKeyWindow) {
+                presentingWindow = window;
+                break;
+            }
+        }
+    }
+
+    if (presentingWindow == nil) {
+        presentingWindow = application.keyWindow;
+    }
+
+    if (presentingWindow == nil && application.windows.count > 0) {
+        presentingWindow = application.windows.firstObject;
+    }
+
+    return presentingWindow;
+}
+
 -(UIViewController *)getTopPresentedViewController {
     UIViewController *presentingViewController = self.viewController;
-    if (presentingViewController.view.window != [UIApplication sharedApplication].keyWindow){
-        presentingViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if (presentingViewController == nil || presentingViewController.view.window == nil) {
+        presentingViewController = [self getPresentingWindow].rootViewController;
+    }
+    if (presentingViewController == nil) {
+        return nil;
     }
 
     while (presentingViewController.presentedViewController != nil && ![presentingViewController.presentedViewController isBeingDismissed]){
@@ -164,7 +219,12 @@ static void soundCompletionCallback(SystemSoundID  ssid, void* data) {
 
     __weak CDVNotification* weakNotif = self;
     UIAlertController* alertController = [alertList firstObject];
-    [self.getTopPresentedViewController presentViewController:alertController animated:YES completion:^{
+    UIViewController* presentingViewController = [self getTopPresentedViewController];
+    if (alertController == nil || presentingViewController == nil || presentingViewController.view.window == nil || presentingViewController.isBeingDismissed) {
+        // The presenting controller may be unavailable while the app/view hierarchy is transitioning.
+        return;
+    }
+    [presentingViewController presentViewController:alertController animated:YES completion:^{
         [alertList removeObject:alertController];
         if (!openAlertList) {
             openAlertList = [[NSMutableArray alloc] init];

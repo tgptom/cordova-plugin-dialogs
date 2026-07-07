@@ -20,14 +20,14 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
            id="cordova-plugin-dialogs"
-      version="3.0.0-dev">
+      version="3.0.0">
 
     <name>Notification</name>
     <description>Cordova Notification Plugin</description>
     <license>Apache 2.0</license>
     <keywords>cordova,notification</keywords>
-    <repo>https://github.com/apache/cordova-plugin-dialogs</repo>
-    <issue>https://github.com/apache/cordova-plugin-dialogs/issues</issue>
+    <repo>https://github.com/tgptom/cordova-plugin-dialogs</repo>
+    <issue>https://github.com/tgptom/cordova-plugin-dialogs/issues</issue>
 
     <js-module src="www/notification.js" name="notification">
         <merges target="navigator.notification" />

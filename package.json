@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-dialogs",
-  "version": "3.0.0-dev",
+  "version": "3.0.0",
   "description": "Cordova Notification Plugin",
   "types": "./types/index.d.ts",
   "cordova": {
@@ -11,8 +11,8 @@
       "ios"
     ]
   },
-  "repository": "github:apache/cordova-plugin-dialogs",
-  "bugs": "https://github.com/apache/cordova-plugin-dialogs/issues",
+  "repository": "github:tgptom/cordova-plugin-dialogs",
+  "bugs": "https://github.com/tgptom/cordova-plugin-dialogs/issues",
   "keywords": [
     "cordova",
     "notification",
@@ -30,7 +30,8 @@
   "engines": {
     "cordovaDependencies": {
       "3.0.0": {
-        "cordova": ">100"
+        "cordova-android": ">=7.0.0",
+        "cordova-ios": ">=5.1.0"
       }
     }
   },

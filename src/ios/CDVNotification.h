@@ -22,7 +22,7 @@
 #import <AudioToolbox/AudioServices.h>
 #import <Cordova/CDVPlugin.h>
 
-@interface CDVNotification : CDVPlugin <UIAlertViewDelegate>{}
+@interface CDVNotification : CDVPlugin {}
 
 - (void)alert:(CDVInvokedUrlCommand*)command;
 - (void)confirm:(CDVInvokedUrlCommand*)command;

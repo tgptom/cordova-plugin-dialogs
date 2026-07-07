@@ -70,7 +70,9 @@ public class Notification extends CordovaPlugin {
     private ArrayList<AlertDialog> dialogs = new ArrayList<>();
 
     public int confirmResult = -1;
+    @SuppressWarnings("deprecation")
     public ProgressDialog spinnerDialog = null;
+    @SuppressWarnings("deprecation")
     public ProgressDialog progressDialog = null;
 
     /**
@@ -292,7 +294,7 @@ public class Notification extends CordovaPlugin {
             But for some android versions is not visible (for example 5.1.1).
             android.R.color.primary_text_light will make text visible on all versions. */
             Resources resources = cordova.getActivity().getResources();
-            int promptInputTextColor = resources.getColor(android.R.color.primary_text_light);
+            int promptInputTextColor = getColorCompat(resources, android.R.color.primary_text_light);
             promptInput.setTextColor(promptInputTextColor);
             promptInput.setText(defaultText);
             Builder dlg = createDialog(cordova); // new AlertDialog.Builder(cordova.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
@@ -497,6 +499,7 @@ public class Notification extends CordovaPlugin {
     }
 
     @SuppressLint("InlinedApi")
+    @SuppressWarnings("deprecation")
     private ProgressDialog createProgressDialog(CordovaInterface cordova) {
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -514,7 +517,20 @@ public class Notification extends CordovaPlugin {
         dialogs.add(dialog);
         if (currentapiVersion >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
             TextView messageview = dialog.findViewById(android.R.id.message);
-            messageview.setTextDirection(android.view.View.TEXT_DIRECTION_LOCALE);
+            if (messageview != null) {
+                messageview.setTextDirection(android.view.View.TEXT_DIRECTION_LOCALE);
+            } else {
+                LOG.d(LOG_TAG, "Dialog message TextView was not found; skipping text-direction update");
+            }
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    private int getColorCompat(Resources resources, int colorResId) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            return resources.getColor(colorResId, this.cordova.getActivity().getTheme());
+        }
+
+        return resources.getColor(colorResId);
     }
 }
