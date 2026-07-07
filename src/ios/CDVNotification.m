@@ -221,6 +221,7 @@ static void soundCompletionCallback(SystemSoundID  ssid, void* data) {
     UIAlertController* alertController = [alertList firstObject];
     UIViewController* presentingViewController = [self getTopPresentedViewController];
     if (alertController == nil || presentingViewController == nil || presentingViewController.view.window == nil || presentingViewController.isBeingDismissed) {
+        // The presenting controller may be unavailable while the app/view hierarchy is transitioning.
         return;
     }
     [presentingViewController presentViewController:alertController animated:YES completion:^{

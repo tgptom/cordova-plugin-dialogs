@@ -519,6 +519,8 @@ public class Notification extends CordovaPlugin {
             TextView messageview = dialog.findViewById(android.R.id.message);
             if (messageview != null) {
                 messageview.setTextDirection(android.view.View.TEXT_DIRECTION_LOCALE);
+            } else {
+                LOG.d(LOG_TAG, "Dialog message TextView was not found; skipping text-direction update");
             }
         }
     }
